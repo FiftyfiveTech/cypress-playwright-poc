@@ -18,11 +18,17 @@ Following are key high level requirements of this POC:
 
 ## Tech
 
-- [React](https://reactjs.org/) - HTML enhanced for web apps!
-- [StoryBook](https://storybook.js.org/) - UI component explorer for frontend developers.
-- [Material UI](https://mui.com/) - The React component library you always wanted.
-- [Web pack](https://webpack.js.org/) - Bundle your JavaScript applications.
-- [Notistack](https://notistack.com/) -  Super easy to display notifications on your web apps.
+- [Cypress](https://docs.cypress.io/): Cypress is a next generation front end testing tool built for the modern web.
+
+- [Playwright](https://playwright.dev/): Playwright enables reliable end-to-end testing for modern web apps. · Any browser • Any platform • One API · Resilient • No flaky tests · No trade-offs • No limits.
+
+- [Happo](https://happo.io/): Happo is a cross-browser screenshot testing service. Prevent visual regressions, visualize your UI changes, and keep a visual log of your UI.
+
+- [Lighthouse](https://developer.chrome.com/docs/lighthouse/overview/): Google Lighthouse is an open-source, automated tool for measuring the quality of web pages.
+
+- [TypeScript](https://www.typescriptlang.org/): TypeScript is a strongly typed programming language that builds on JavaScript, giving you better tooling at any scale.
+
+
 
 ## Installation
 
@@ -97,17 +103,54 @@ This project is structured in the following way:
 
 **.env** - Custom file added for managing enviroment specific details like server, dev or staging along with username and password.
 
+```
+USER_NAME="<salesForceUser>"
+PASS="<salesForcePassword>"
+HAPPO_ENABLED=true
+HAPPO_API_SECRET="<happoSecret>"
+HAPPO_API_KEY="<happoAPIKey>"
+```
+
 **.happo.ts** - This file is used for managing happo plugins configuration (key, secret and screenshot config etc).
 
 **global-setup.ts** - This file is used by playwright for environment specific variables.
 
 **playwright.config.ts** - This is a configuration file for managing playwright configurations.
 
-**stage-config.json** - This is a configuration file for passing environment details during command execution.
-
 **tsconfig.json** - This is used to configure typescript compiler options and also to specify the root files for the project.
 
-### Scenarios
+**Stage-config.json** - Add a new file named Stage-config.json at project level which contains baseUrl, username and password where you have to pass your username and password.
+
+```json
+{
+   "extends": "./cypress.json",
+   "env": {
+    "baseUrl": "https://login.salesforce.com/?locale=in",
+    "username": "*****",
+    "password": "*****"
+  }
+}
+```
+
+**Cypress.json**: Add values for default username and password into cypress.jaon file as follows :
+
+```json
+ "env": {
+    "baseUrl": "https://login.salesforce.com/?locale=in",
+    "username": "*****",
+    "password": "*****"
+  },
+```
+
+**commonMethod.ts**:  This file contains customized common methods which are used in cypress test cases such as , clickOn(), fillText() etc.
+
+**commonVariables.ts**: This file contains all the common variables which are used in cypress test cases.
+
+**PageObjects**:  This folder contains all the page object files such as LoginPage.ts, HomePage.ts.
+
+**Test-specs**: This folder contains all the test suits of cypress such as cypress_POC.spec.ts and MultiTab.spec.ts
+
+## Scenarios
 For purpose of evalauation of tool capabilities and integration with third party plugins, following scenarions are automated:
 
 **Scenario 1:** User login to salesforce website. User should be able to login to salesforce website using different URLs and different user credentials. While execution of script environment details can be passed from CLI. Also demos integration of Happo.io for visual verification and integration of lighthouse for performance testing of page.
@@ -116,14 +159,46 @@ For purpose of evalauation of tool capabilities and integration with third party
 
 **Scenario 3:** Multitab testing, user opens a website(https://www.toolsqa.com/, in our case). Click on "Demo site" link which opens a new website in new tab.
 
-### Playwright
+## Playwright
 **Scenario 1**: For scenario 1, Playwright executes the script successfully, one challenge has been integration of lighthouse for performance. Due to less community support it remain a challenge for easy integration. Performance integration is TBD for this project.
 
 **Scenario 2**: For scenario 2, Playwright executes script successfuly for cases where there can be cross origin link verification.
 
 **Scenarion 3**: For scenario 3, Playwright executes script successfuly for cases where app may open lnks in multiple tabs.
 
-### Cypress
+### Running Playwright scripts
+
+#### salesForce.spec.ts: This script handles the scenario 1. For execution of same scripts on different urls, custom commands are added to the **package.json** file as:
+
+```"playwright-stage": "STAGING=\"1\" npx playwright test salesforce.spec"```
+
+```"playwright-dev": "STAGING=\"0\" npx playwright test salesforce.spec"```
+
+**STAGING** parameters specifies environment to be selected. Environment details are added in "playwright.config.ts".
+
+#### For execution run command as 
+
+```npm run playwright-stage```
+
+OR 
+
+```npm playwright-dev ```
+
+
+#### crossDomain.spec.ts: This script handles the scenario 2.
+
+**For execution run command as**
+
+```npm run playwright crossDomain.spec```
+ 
+#### multitab.spec.ts: This script handles the scenario 3.
+
+**For execution run command as**
+
+```npm run playwright multitab.spec```
+
+
+## Cypress
 
 **Scenario 1**: For scenario 1, Cypress executes the script successfully. Cypress has a strong community support, which helpd in quick integrations. Cypress had plugin support for lighthouse.
 
@@ -131,13 +206,35 @@ For purpose of evalauation of tool capabilities and integration with third party
 
 **Scenarion 3**: For scenario 3, Cypress script does not support verification in case of multi-tabs.
 
-### Running Playwright scripts
-
-
-
 ### Running Cypress scripts
 
-## License
+#### SaleForce.spec.ts: This script handles scenario 1:
+
+**For execution run command as**
+
+- for running on stage
+
+```npm run cypress-run "cypress/integration/Test_specs/SalesForce.spec.ts --config-file stage-config.json"```
+
+- for running on default system
+
+```npm run cypress-run "cypress/integration/Test_specs/SalesForce.spec.ts"```
+
+> Note: config files can be added for different systems as per the requirement.
+
+#### CrossOrigin.spec.ts: This script handles scenario 2:
+
+**For execution run command as**
+
+```npm run cypress-run "cypress/integration/Test_specs/CrossOrigin.spec.ts"```
+
+#### MultiTabs.spec.ts: This script handles the scenario 3.
+
+**For execution run command as**
+
+```npm run cypress-run "cypress/integration/Test_specs/MultiTabs.spec.ts"```
+ 
+
 
 **55 Tech**
 
