@@ -4,8 +4,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "playwright-staging": "STAGING=\"0\" npx playwright test salesforce.spec",
-    "playwright-dev": "STAGING=\"1\" npx playwright test salesforce.spec",
+    "playwright-stage": "STAGING=\"1\" npx playwright test salesforce.spec",
+    "playwright-dev": "STAGING=\"0\" npx playwright test salesforce.spec",
     "cypress": "npx cypress open"
   },
   "author": "",
