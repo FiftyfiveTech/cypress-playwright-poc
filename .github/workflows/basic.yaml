@@ -30,6 +30,7 @@ jobs:
           CYPRESS_password: ${{ secrets.PASSWORD }}
         with:
           browser: chrome
+          record: true
           working-directory: ${{ github.workspace }}
 #           install-command: npm install
           # build: npm i --legacy-peer-deps
