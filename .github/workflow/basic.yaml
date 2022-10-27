@@ -1,0 +1,4 @@
+name: Cypress test in Git
+on: [push]
+jobs:
+  cypress-run:
