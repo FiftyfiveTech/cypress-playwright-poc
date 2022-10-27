@@ -70,7 +70,7 @@ This project is structured in the following way:
 │   └───salesForce.spec.ts
 ├───pages/
 │   ├───demoSite.page.ts
-│   ├───fiftyfivetech.page.ts
+│   ├───wiki.page.ts
 │   └───login.page.ts
 ├───playwright-report/
 │   └───index.html
@@ -155,7 +155,7 @@ For purpose of evalauation of tool capabilities and integration with third party
 
 **Scenario 1:** User login to salesforce website. User should be able to login to salesforce website using different URLs and different user credentials. While execution of script environment details can be passed from CLI. Also demos integration of Happo.io for visual verification and integration of lighthouse for performance testing of page.
 
-**Scenario 2:** Cross origin verification, user opens a website(https://www.fiftyfivetech.io/ in our case). Click on linkedin link and verify that usr is directed to companies linkedin profile page.
+**Scenario 2:** Cross origin verification, user opens facebook's wiki page(https://en.wikipedia.org/wiki/Facebook in our case). Click on facebook website link and verify that user is directed to facebook's home page.
 
 **Scenario 3:** Multitab testing, user opens a website(https://www.toolsqa.com/, in our case). Click on "Demo site" link which opens a new website in new tab.
 
