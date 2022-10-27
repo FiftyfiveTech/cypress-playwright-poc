@@ -5,6 +5,9 @@ jobs:
     name: Test1
     runs-on: ubuntu-20.04
     environment: test
+    strategy:
+      matrix:
+        node-version: [14.x]
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -13,16 +16,27 @@ jobs:
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}
-      - name: Cypress run
-        uses: cypress-io/github-action@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+         node-version: ${{ matrix.node-version }}
+      - name: npm run deploy
         env: # Or as an environment 
           USERNAME: ${{ secrets.USERNAME }}
           PASSWORD: ${{ secrets.PASSWORD }}
-        with:
-          working-directory: ${{ github.workspace }}
-          install-command: npm install
-          # build: npm i --legacy-peer-deps
-          start: npm run cypress-run "cypress/integration/Test_specs/SalesForce.spec.ts --config-file stage-config.json"
+        run: |
+         npm install
+         npm run cypress-run "cypress/integration/Test_specs/SalesForce.spec.ts --config-file cypress.json"
+#       - name: Cypress run
+#         uses: cypress-io/github-action@v2
+#         env: # Or as an environment 
+#           USERNAME: ${{ secrets.USERNAME }}
+#           PASSWORD: ${{ secrets.PASSWORD }}
+#         with:
+#           working-directory: ${{ github.workspace }}
+#           install-command: npm install
+#           # build: npm i --legacy-peer-deps
+#           start: npm run cypress-run "cypress/integration/Test_specs/SalesForce.spec.ts --config-file stage-config.json"
       # - name: test
       #   env: # Or as an environment 
       #     USERNAME: ${{ secrets.USERNAME }}
