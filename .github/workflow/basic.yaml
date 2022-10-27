@@ -2,3 +2,18 @@ name: Cypress test in Git
 on: [push]
 jobs:
   cypress-run:
+    name: Test1
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      # Install NPM dependencies, cache them correctly
+      # and run all Cypress tests
+      - name: List files in the repository
+        run: |
+          ls ${{ github.workspace }}
+      - name: Cypress run
+        uses: cypress-io/github-action@v2
+        with:
+          build: npm run build
+          start: npm start
