@@ -7,7 +7,7 @@
     "playwright-stage": "STAGING=\"1\" npx playwright test salesforce.spec",
     "playwright-dev": "STAGING=\"0\" npx playwright test salesforce.spec",
     "cypress": "npx cypress open",
-    "cypress-run": "npx cypress run --browser chrome --headed --spec"
+    "cypress-run": "npx cypress run --browser chrome --spec"
   },
   "author": "",
   "license": "ISC",
