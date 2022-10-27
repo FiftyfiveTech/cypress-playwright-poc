@@ -34,7 +34,7 @@ jobs:
           working-directory: ${{ github.workspace }}
 #           install-command: npm install
           # build: npm i --legacy-peer-deps
-          start: npm run cypress-run "cypress/integration/Test_specs/SalesForce.spec.ts --config-file cypress.json"
+          start: npm run cypress-run "cypress/integration/Test_Specs/SalesForce.spec.ts --config-file cypress.json"
 #       - name: test
       #   env: # Or as an environment 
       #     USERNAME: ${{ secrets.USERNAME }}
