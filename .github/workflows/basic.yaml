@@ -12,8 +12,12 @@ jobs:
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}
-      - name: Cypress run
-        uses: cypress-io/github-action@v2
+      # - name: Cypress run
+      #   uses: cypress-io/github-action@v2
+      #   env: # Or as an environment 
+      #     USERNAME: ${{ secrets.USERNAME }}
+      #     PASSWORD: ${{ secrets.PASSWORD }}
+      - name: test
         env: # Or as an environment 
           USERNAME: ${{ secrets.USERNAME }}
           PASSWORD: ${{ secrets.PASSWORD }}
