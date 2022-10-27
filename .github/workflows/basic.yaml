@@ -13,21 +13,18 @@ jobs:
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}
-      # - name: Cypress run
-      #   uses: cypress-io/github-action@v2
-      #   env: # Or as an environment 
-      #     USERNAME: ${{ secrets.USERNAME }}
-      #     PASSWORD: ${{ secrets.PASSWORD }}
-      - name: test
+      - name: Cypress run
+        uses: cypress-io/github-action@v2
         env: # Or as an environment 
           USERNAME: ${{ secrets.USERNAME }}
           PASSWORD: ${{ secrets.PASSWORD }}
-        run: |
-          echo "$USERNAME"
-        # with:
-        #   build: npm i --legacy-peer-deps
-        #   start: npm run cypress-run 
-      - name: npm run deploy
-        run: |
-          export GIT_USER=${{secrets.USERNAME}}
-          echo "$GIT_USER"
+        with:
+          build: npm i --legacy-peer-deps
+          start: npm run cypress-run 
+      # - name: test
+      #   env: # Or as an environment 
+      #     USERNAME: ${{ secrets.USERNAME }}
+      #     PASSWORD: ${{ secrets.PASSWORD }}
+      #   run: |
+      #     echo "$USERNAME"
+        
