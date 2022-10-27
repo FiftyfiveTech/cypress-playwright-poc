@@ -26,3 +26,7 @@ jobs:
         # with:
         #   build: npm i --legacy-peer-deps
         #   start: npm run cypress-run 
+      - name: npm run deploy
+        run: |
+          export GIT_USER=${{secrets.USERNAME}}
+          echo "$GIT_USER"
