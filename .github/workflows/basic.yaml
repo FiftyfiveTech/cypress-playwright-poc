@@ -20,7 +20,7 @@ jobs:
           PASSWORD: ${{ secrets.PASSWORD }}
         with:
           working-directory: ${{ github.workspace }}
-          install-command: npm i --legacy-peer-deps
+          install-command: npm install
           # build: npm i --legacy-peer-deps
           start: npm run cypress-run "cypress/integration/Test_specs/SalesForce.spec.ts --config-file stage-config.json"
       # - name: test
