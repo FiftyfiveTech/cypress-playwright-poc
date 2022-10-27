@@ -5,25 +5,29 @@ import {
   submit,
   visit,
 } from "../PageObjects/LoginPage";
+
 describe("Automation for POC", function () {
   const thresholds = {
-    performance: 50,
-    "first-contentful-paint": 2000,
+    performance: 20,
+    "first-contentful-paint": 3000,
     "largest-contentful-paint": 3000,
-    accessibility: 80,
-    interactive: 2000,
-    seo: 60,
-    pwa: 50,
+    accessibility: 50,
+    interactive: 5000,
+    seo: 50,
+    pwa: 10,
   };
+
   const lighthouseConfig = {
     formFactor: "desktop",
     screenEmulation: {
       disabled: true,
     },
   };
+
   before(() => {
     visit();
   });
+
   it("Verify Login with valid username and valid password", function () {
     (cy.get("body") as any).happoScreenshot({ component: "LoginScreen" });
     fillUsername(Cypress.env("username"));
