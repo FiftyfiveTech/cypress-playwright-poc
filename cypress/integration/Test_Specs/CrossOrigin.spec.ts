@@ -4,7 +4,6 @@ import {
   verifyCrossOrigin,
   visitCrossPage,
 } from "../PageObjects/CrossHomePage";
-import { visit } from "../PageObjects/LoginPage";
 
 describe("POC", function () {
   before(() => {

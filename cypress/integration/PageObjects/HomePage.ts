@@ -11,9 +11,11 @@ export const verifyMultiTab = () => {
   cy.wait(3000);
   verifySecondTabElement();
 };
+
 export const verifySecondTabElement = () => {
   cy.get(secondTabElement).should("be.visible");
 };
+
 export const visitUrl = () => {
   cy.visit("https://toolsqa.com/");
 };
