@@ -1,24 +1,26 @@
 ///  <reference types="Cypress"/>
 
-import { clickOn, clickOnText } from "../CommonUtils/commonMethod";
-import { ACCEPT_ALL, linkedInUrl } from "../CommonUtils/commonVariable";
-const linkeInLink =
-  "div[id='custom_html-4']>div>div>div:nth-child(2)>ul>li:nth-child(3)>a";
+import { clickOn } from "../CommonUtils/commonMethod";
+import { FB_URL } from "../CommonUtils/commonVariable";
+
+const facebookLink =
+  "table[class='infobox vcard']>tbody>tr:nth-child(11)>td>span>a";
 
 export const verifyCrossOrigin = () => {
   cy.wait(3000);
-  clickOnText(ACCEPT_ALL);
-  cy.scrollTo("bottom");
-  selectLinkedIn();
+  selectFacebook();
   cy.wait(2000);
-  verifyLinkedInPage();
+  verifyFacebookPage();
 };
+
 export const visitCrossPage = () => {
-  cy.visit("https://www.fiftyfivetech.io/");
+  cy.visit("https://en.wikipedia.org/wiki/Facebook");
 };
-export const selectLinkedIn = () => {
-  clickOn(linkeInLink);
+
+export const selectFacebook = () => {
+  clickOn(facebookLink);
 };
-export const verifyLinkedInPage = () => {
-  cy.url().should("include", linkedInUrl);
+
+export const verifyFacebookPage = () => {
+  cy.url().should("include", FB_URL);
 };
