@@ -47,6 +47,56 @@ This project is using `npm` as package manager, if you do not have this installe
 
 If you seem to still have issues with these commands, try running `npm cache clean` and do `npm install` or `npm install --legacy-peer-deps`
 
+### Configuration setup for running scripts locally
+
+For running the scripts following configuration changes are required
+
+- **Add .env file to the root folder and add the required key value pairs as below**
+
+```
+USER_NAME="<salesForceUser>"
+PASS="<salesForcePassword>"
+HAPPO_ENABLED=true
+HAPPO_API_SECRET="<happoSecret>"
+HAPPO_API_KEY="<happoAPIKey>"
+```
+
+> Note: Happo.io account is required for generating API_SECRET and API_KEY.
+
+- **Add Stage-config.json file to the root folder and required key value pairs as below**
+
+```json
+{
+   "extends": "./cypress.json",
+   "env": {
+    "baseUrl": "https://login.salesforce.com/?locale=in",
+    "username": "*****",
+    "password": "*****"
+  }
+}
+```
+
+-  **Update cypress.json with following values for adding default environment details**
+
+```json
+ "env": {
+    "baseUrl": "https://login.salesforce.com/?locale=in",
+    "username": "*****",
+    "password": "*****"
+  },
+```
+
+> Note: ```npx cypress open```, will run script on default environment.
+
+
+### Running scripts
+
+> Note: for running Cypress and Playwright scripts, refer to sections
+
+[Cypress](https://github.com/FiftyfiveTech/cypress-playwright-poc/edit/master/README.md#cypress) 
+
+[Playwright](https://github.com/FiftyfiveTech/cypress-playwright-poc/edit/master/README.md#playwright)
+
 ### Linting
 Project is using ESLint to make sure that we keep same coding style in the project. Currently the ruleset is defined in `.eslintrc.json`.
 
@@ -132,7 +182,7 @@ HAPPO_API_KEY="<happoAPIKey>"
 }
 ```
 
-**Cypress.json**: Add values for default username and password into cypress.jaon file as follows :
+**Cypress.json**: Add values for default username and password into cypress.json file as follows :
 
 ```json
  "env": {

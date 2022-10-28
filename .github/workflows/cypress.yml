@@ -1,0 +1,31 @@
+name: Cypress test in Git
+on:
+  push:
+    branches:
+      - cypress-pipeline
+jobs:
+  cypress-run:
+    name: Test1
+    runs-on: ubuntu-20.04
+    environment: test
+    strategy:
+      matrix:
+        node-version: [14.x]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: npm run deploy
+        run: npm install
+      - name: Cypress run
+        uses: cypress-io/github-action@v4
+        env:
+          CYPRESS_username: ${{ secrets.USERNAME }}
+          CYPRESS_password: ${{ secrets.PASSWORD }}
+        with:
+          browser: chrome
+          working-directory: ${{ github.workspace }}
+          start: npm run cypress-run cypress/integration/Test_Specs/SalesForce.spec.ts --config-file cypress.json
