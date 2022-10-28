@@ -42,7 +42,7 @@ const config: PlaywrightTestConfig = {
         : "https://login.salesforce.com/?locale=in",
     actionTimeout: 0,
     browserName: "chromium",
-    headless: false,
+    headless: true,
     /* Base URL to use in actions like `await page.goto('/')`. */
     // baseURL: 'http://localhost:3000',
 

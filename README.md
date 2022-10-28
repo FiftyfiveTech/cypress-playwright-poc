@@ -47,6 +47,56 @@ This project is using `npm` as package manager, if you do not have this installe
 
 If you seem to still have issues with these commands, try running `npm cache clean` and do `npm install` or `npm install --legacy-peer-deps`
 
+### Configuration setup for running scripts locally
+
+For running the scripts following configuration changes are required
+
+- **Add .env file to the root folder and add the required key value pairs as below**
+
+```
+USER_NAME="<salesForceUser>"
+PASS="<salesForcePassword>"
+HAPPO_ENABLED=true
+HAPPO_API_SECRET="<happoSecret>"
+HAPPO_API_KEY="<happoAPIKey>"
+```
+
+> Note: Happo.io account is required for generating API_SECRET and API_KEY.
+
+- **Add Stage-config.json file to the root folder and required key value pairs as below**
+
+```json
+{
+   "extends": "./cypress.json",
+   "env": {
+    "baseUrl": "https://login.salesforce.com/?locale=in",
+    "username": "*****",
+    "password": "*****"
+  }
+}
+```
+
+-  **Update cypress.json with following values for adding default environment details**
+
+```json
+ "env": {
+    "baseUrl": "https://login.salesforce.com/?locale=in",
+    "username": "*****",
+    "password": "*****"
+  },
+```
+
+> Note: ```npx cypress open```, will run script on default environment.
+
+
+### Running scripts
+
+> Note: for running Cypress and Playwright scripts, refer to sections
+
+[Cypress](https://github.com/FiftyfiveTech/cypress-playwright-poc/edit/master/README.md#cypress) 
+
+[Playwright](https://github.com/FiftyfiveTech/cypress-playwright-poc/edit/master/README.md#playwright)
+
 ### Linting
 Project is using ESLint to make sure that we keep same coding style in the project. Currently the ruleset is defined in `.eslintrc.json`.
 
@@ -70,7 +120,7 @@ This project is structured in the following way:
 │   └───salesForce.spec.ts
 ├───pages/
 │   ├───demoSite.page.ts
-│   ├───fiftyfivetech.page.ts
+│   ├───wiki.page.ts
 │   └───login.page.ts
 ├───playwright-report/
 │   └───index.html
@@ -132,7 +182,7 @@ HAPPO_API_KEY="<happoAPIKey>"
 }
 ```
 
-**Cypress.json**: Add values for default username and password into cypress.jaon file as follows :
+**Cypress.json**: Add values for default username and password into cypress.json file as follows :
 
 ```json
  "env": {
@@ -155,7 +205,7 @@ For purpose of evalauation of tool capabilities and integration with third party
 
 **Scenario 1:** User login to salesforce website. User should be able to login to salesforce website using different URLs and different user credentials. While execution of script environment details can be passed from CLI. Also demos integration of Happo.io for visual verification and integration of lighthouse for performance testing of page.
 
-**Scenario 2:** Cross origin verification, user opens a website(https://www.fiftyfivetech.io/ in our case). Click on linkedin link and verify that usr is directed to companies linkedin profile page.
+**Scenario 2:** Cross origin verification, user opens facebook's wiki page(https://en.wikipedia.org/wiki/Facebook in our case). Click on facebook website link and verify that user is directed to facebook's home page.
 
 **Scenario 3:** Multitab testing, user opens a website(https://www.toolsqa.com/, in our case). Click on "Demo site" link which opens a new website in new tab.
 

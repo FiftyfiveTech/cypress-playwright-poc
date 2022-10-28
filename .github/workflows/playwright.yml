@@ -1,0 +1,32 @@
+name: Playwright test
+on:
+  push:
+    branches:
+      - playwright-pipeline
+jobs:
+  playwright-run:
+    name: "Playwright"
+    runs-on: ubuntu-latest
+    environment: test
+    container:
+      image: mcr.microsoft.com/playwright:v1.27.0-focal
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "14"
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
+      - name: Run your tests
+        env:
+          USER_NAME: ${{ secrets.USER_NAME }}
+          PASS: ${{ secrets.PASS }}
+          HAPPO_ENABLED: ${{ secrets.HAPPO_ENABLED }}
+          HAPPO_API_SECRET: ${{ secrets.HAPPO_API_SECRET }}
+          HAPPO_API_KEY: ${{ secrets.HAPPO_API_KEY }}
+        run: STAGING=\"1\" npx playwright test
+      - uses: actions/upload-artifact@v2
+        if: ${{ always() }}
+        with:
+          name: test-artifacts
+          path: ${{ github.workspace }}/playwright-report
